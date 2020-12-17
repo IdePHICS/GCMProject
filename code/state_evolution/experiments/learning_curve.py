@@ -2,6 +2,7 @@ from ..data_models.custom import Custom
 from ..models.ridge_regression import RidgeRegression
 from ..models.logistic_regression import LogisticRegression
 from ..algorithms.state_evolution import StateEvolution
+import pandas as pd
 
 class CustomExperiment(object):
     '''
@@ -19,18 +20,20 @@ class CustomExperiment(object):
         self.task = task
         self.lamb = regularisation
         self.data_model = data_model
+        
         # Hyperparameters
-        self.initialisation=initialisation,
-        self.tolerance=tolerance
-        self.damping=damping,
-        self.verbose=verbose,
-        self.max_steps=max_steps
+        self.initialisation=initialisation
+        self.tolerance = tolerance
+        self.damping = damping
+        self.verbose = verbose
+        self.max_steps = max_steps
 
 
     def learning_curve(self, *, alphas):
         curve = {
             'task': [],
             'gamma': [],
+            'lambda': [],
             'rho': [],
             'sample_complexity': [],
             'V': [],
@@ -40,14 +43,18 @@ class CustomExperiment(object):
             'train_loss': [],
         }
         for alpha in alphas:
-            self._run(sample_complexity=alpha)
+            if self.verbose:
+                print('Runninig sample complexity: {}'.format(alpha))
+
+            self._run(sample_complexity = alpha)
             info_sp = self.se.get_info()
             info_data = self.data_model.get_info()
 
             curve['task'].append(self.task)
-            curve['lambda'].append(self.lamb)
             curve['gamma'].append(info_data['teacher_dimension'] / info_data['student_dimension'])
+            curve['lambda'].append(self.lamb)
             curve['rho'].append(self.data_model.rho)
+            curve['sample_complexity'].append(alpha)
 
             curve['test_error'].append(info_sp['test_error'])
             curve['train_loss'].append(info_sp['train_loss'])
@@ -55,8 +62,12 @@ class CustomExperiment(object):
             curve['q'].append(info_sp['overlaps']['self_overlap'])
             curve['m'].append(info_sp['overlaps']['self_overlap'])
 
-        self.learning_curve = pd.DataFrame.from_dict(curve)
+        self._learning_curve = pd.DataFrame.from_dict(curve)
 
+    
+    def get_curve(self):
+        return self._learning_curve
+    
     def _run(self, *, sample_complexity):
         '''
         Runs saddle-point equations.
@@ -86,22 +97,22 @@ class CustomExperiment(object):
         else:
             print('{} not implemented.'.format(self.task))
 
-    def save_experiment(self, data_dir):
+    def save_experiment(self, date=False, unique_id=False, directory='.', *, name):
         '''
         Saves result of experiment in .json file with info for reproductibility.
         '''
-        from datetime import datetime
-        import os
-        import json
-        import uuid
+        path = '{}/{}'.format(directory, name)
+        
+        if date:
+            from datetime import datetime
+            day, time = datetime.now().strftime("%d_%m_%Y"), datetime.now().strftime("%H:%M")
+            path += '_{}_{}'.format(day, time)
+            
+        if unique_id:
+            import uuid
+            unique_id = uuid.uuid4().hex
+            path += '_{}'.format(unique_id)
 
-        unique_id = uuid.uuid4().hex
-        day, time = datetime.now().strftime("%d_%m_%Y"), datetime.now().strftime("%H:%M:%S")
-
-        sub_dir = '{}/{}'.format(data_dir, day)
-        if not os.path.isdir(sub_dir):
-            os.mkdir(sub_dir)
-
-        name = '{}/{}_{}.json'.format(sub_dir, self.task, unique_id)
-        print('Saving experiment at {}'.format(name))
-        self.learning_curve.to_csv(outfile, index=False)
+        path += '.csv'
+        print('Saving experiment at {}'.format(path))
+        self._learning_curve.to_csv(path, index=False)
