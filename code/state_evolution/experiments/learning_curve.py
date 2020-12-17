@@ -78,7 +78,7 @@ class CustomExperiment(object):
                        initialisation=self.initialisation,
                        tolerance=self.tolerance,
                        damping=self.damping,
-                       verbose=self.verbose,
+                       verbose=False,
                        max_steps=self.max_steps)
 
         self.se.iterate()
