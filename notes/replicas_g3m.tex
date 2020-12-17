@@ -44,7 +44,7 @@
 %%%%%%%%%%%%%%%%%%%%
 We are interested in the supervised problem of fitting a dataset $(\vec{x}^{\mu}, y^{\mu})_{\mu=1}^{n}$ with a parametric model $\hat{y} = f_{\vec{w}}(\vec{x})$ by minimising a loss function $\ell$:
 \begin{align}
-\hat{\vec{w}} = \underset{\vec{w}\in\mathbb{R}^{p}}{\argmin}\left[\sum\limits_{\mu=1}^{n}\ell\left(y^{\mu},\hat{y}^{\mu}\right)+\frac{\lambda}{2}\sum\limits_{i=1}^{p}r(w_{i})\right],
+\hat{\vec{w}} = \underset{\vec{w}\in\mathbb{R}^{p}}{\argmin}\left[\sum\limits_{\mu=1}^{n}\ell\left(y^{\mu},\vec{x}^{\mu}\cdot \vec{w}\right)+\frac{\lambda}{2}\sum\limits_{i=1}^{p}r(w_{i})\right],
 \label{eq:argmin}
 \end{align}
 \noindent where $\lambda>0$ and $r(\vec{w})$ is a regularisation term, e.g. $r(w) = w^2$ for the $\ell_2$-penalty.
@@ -95,10 +95,10 @@ The computation of the free energy density thus boils down to the evaluation of 
 \end{align}
 Focusing on the average term:
 \begin{align}
-	(\star) &= \mathbb{E}_{\vec{c}^{\mu}}\left[P^{0}_{y}\left(y^{\mu}\Big|\frac{\vec{z}^{\mu}\cdot\vec{\theta}^{0}}{\sqrt{k}}\right)\prod\limits_{a=1}^{r}P_{y}\left(y^{\mu}\Big|\frac{\vec{x}^{\mu}\cdot\vec{w}^{a}}{\sqrt{p}}\right)\right]\notag\\ 
-	&= \int_{\mathbb{R}}\dd\nu_{\mu}P_{y}^{0}\left(y|\nu_{\mu}\right)\int_{\mathbb{R}^{r}}\left(\prod\limits_{a=1}^{r}\dd\lambda^{a}_{\mu}P_{y}(y^{\mu}|\lambda_{\mu}^{a})\right)~\underbrace{\mathbb{E}_{\vec{c}^{\mu}}\left[\delta\left(\nu_{\mu}-\frac{\vec{z}^{\mu}\cdot\vec{\theta}^{0}}{\sqrt{k}}\right)\prod\limits_{a=1}^{r}\delta\left(\lambda^{a}_{\mu}-\frac{\vec{x}^{\mu}\cdot\vec{w}^{a}}{\sqrt{p}}\right)\right]}_{P(\nu,\lambda)}
+	(\star) &= \mathbb{E}_{(\vec{x},\vec{z})}\left[P^{0}_{y}\left(y^{\mu}\Big|\frac{\vec{z}^{\mu}\cdot\vec{\theta}^{0}}{\sqrt{k}}\right)\prod\limits_{a=1}^{r}P_{y}\left(y^{\mu}\Big|\frac{\vec{x}^{\mu}\cdot\vec{w}^{a}}{\sqrt{p}}\right)\right]\notag\\ 
+	&= \int_{\mathbb{R}}\dd\nu_{\mu}P_{y}^{0}\left(y|\nu_{\mu}\right)\int_{\mathbb{R}^{r}}\left(\prod\limits_{a=1}^{r}\dd\lambda^{a}_{\mu}P_{y}(y^{\mu}|\lambda_{\mu}^{a})\right)~\underbrace{\mathbb{E}_{(\vec{x},\vec{z})}\left[\delta\left(\nu_{\mu}-\frac{\vec{z}^{\mu}\cdot\vec{\theta}^{0}}{\sqrt{k}}\right)\prod\limits_{a=1}^{r}\delta\left(\lambda^{a}_{\mu}-\frac{\vec{x}^{\mu}\cdot\vec{w}^{a}}{\sqrt{p}}\right)\right]}_{P(\nu,\lambda)}\notag
 \end{align}
-Note that since $\vec{x}^{\mu}=\mathcal{G}(\vec{c}^{\mu})$ the last term defines the joint probability between the random variables $(\nu_{\mu},\lambda^{a}_{\mu})$. The \emph{Gaussian Equivalence Principle} states that for certain architectures $\mathcal{G}$, the random variables $(\nu_{\mu},\lambda^{a}_{\mu})$ are asymptotically jointly Gaussian, with zero mean and covariance matrix given by:
+Note that $(\nu_{\mu},\lambda^{a}_{\mu})$. One can check that these are Gaussian random variables with zero mean and covariance matrix given by:
 \begin{align}
 \Sigma^{ab} = 
 \begin{pmatrix}
@@ -340,8 +340,8 @@ As a check, consider the simplest setting where both teacher and student are dra
  
  \begin{figure}[h]
 		\centering
-		\includegraphics[scale=0.45]{./figs/check_ridge}
-		\includegraphics[scale=0.45]{./figs/check_logistic}
+		\includegraphics[scale=0.45]{../code/figs/check_ridge}
+		\includegraphics[scale=0.45]{../code/figs/check_logistic}
 	\caption{Generalisation curves for the model defined in eq.~\eqref{eq:check1} for \textbf{(\textbf{left})} ridge regression and \textbf{(\textbf{right})} logistic regression, with $d/k = 1$, $d/p = 0.5$ and $\lambda = 0.01$.
 	}
 	\label{fig:check1}
