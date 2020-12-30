@@ -71,7 +71,7 @@ class CustomExperiment(object):
         if not os.path.isdir(sub_dir):
             os.mkdir(sub_dir)
 
-        name = '{}/{}_{}.json'.format(sub_dir, info['model'], unique_id)
-        print('Saving experiment at {}'.format(name))
-        with open(name, 'w') as outfile:
-            json.dump(info, outfile)
+                    name = '{}/{}_{}.json'.format(sub_dir, info['model'], unique_id)
+                    print('Saving experiment at {}'.format(name))
+                    with open(name, 'w') as outfile:
+                        json.dump(info, outfile)

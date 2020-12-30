@@ -13,9 +13,6 @@ class RidgeRegression(Model):
 
         self.data_model = data_model
 
-        self.parameters, self.dimension = self.data_model.Phi.shape
-        self.gamma = self.dimension / self.parameters
-
     def get_info(self):
         info = {
             'model': 'ridge_regression',
@@ -32,7 +29,7 @@ class RidgeRegression(Model):
                         mhat**2 * self.data_model.spec_Omega * self.data_model.spec_PhiPhit) /
                         (self.lamb + Vhat*self.data_model.spec_Omega)**2)
 
-            m = mhat/np.sqrt(self.gamma) * np.mean(self.data_model.spec_PhiPhit /
+            m = mhat/np.sqrt(self.data_model.gamma) * np.mean(self.data_model.spec_PhiPhit /
                                                     (self.lamb + Vhat*self.data_model.spec_Omega))
 
         else:
@@ -41,7 +38,7 @@ class RidgeRegression(Model):
                                    self.data_model.spec_Omega /
                                    (self.lamb + Vhat * self.data_model.spec_Omega)**2)
 
-            m = 1/np.sqrt(self.gamma) * np.mean(self.data_model._UTPhiPhiTU/
+            m = mhat/np.sqrt(self.data_model.gamma) * np.mean(self.data_model._UTPhiPhiTU/
                                                 (self.lamb + Vhat * self.data_model.spec_Omega))
 
 
@@ -50,7 +47,7 @@ class RidgeRegression(Model):
     def _update_hatoverlaps(self, V, q, m):
         Vhat = self.alpha * 1/(1+V)
         qhat = self.alpha * (self.data_model.rho + q - 2*m)/(1+V)**2
-        mhat = self.alpha/np.sqrt(self.gamma) * 1/(1+V)
+        mhat = self.alpha/np.sqrt(self.data_model.gamma) * 1/(1+V)
 
         return Vhat, qhat, mhat
 
@@ -60,7 +57,7 @@ class RidgeRegression(Model):
 
 
     def get_test_error(self, q, m):
-        return 1+q-2*m
+        return self.data_model.rho + q - 2*m
 
     def get_train_loss(self, V, q, m):
-        return (1+q-2*m)/(1+V)**2
+        return (self.data_model.rho + q - 2*m) / (1+V)**2

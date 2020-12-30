@@ -60,7 +60,7 @@ class CustomExperiment(object):
             curve['train_loss'].append(info_sp['train_loss'])
             curve['V'].append(info_sp['overlaps']['variance'])
             curve['q'].append(info_sp['overlaps']['self_overlap'])
-            curve['m'].append(info_sp['overlaps']['self_overlap'])
+            curve['m'].append(info_sp['overlaps']['teacher_student'])
 
         self._learning_curve = pd.DataFrame.from_dict(curve)
 

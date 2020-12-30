@@ -15,6 +15,7 @@ class Custom(DataModel):
         self.Phi = teacher_student_cov
 
         self.p, self.k = self.Phi.shape
+        self.gamma = self.k / self.p
         self.PhiPhiT = self.Phi @ self.Phi.T
         self.rho = np.trace(self.Psi) / self.k
 
@@ -26,7 +27,9 @@ class Custom(DataModel):
         info = {
             'data_model': 'custom',
             'teacher_dimension': self.k,
-            'student_dimension': self.p
+            'student_dimension': self.p,
+            'aspect_ratio': self.gamma,
+            'rho': self.rho
         }
         return info
 
@@ -41,3 +44,33 @@ class Custom(DataModel):
         if (np.linalg.norm(self.Psi - self.Psi.T) > 1e-5):
             print('Teacher-teaccher covariance is not a symmetric matrix. Symmetrizing!')
             self.Psi = .5 * (self.Psi+self.Psi.T)
+
+
+class CustomSpectra(DataModel):
+    '''
+    Custom allows for user to pass directly the spectra of the covarinces.
+    -- args --
+    spec_Psi: teacher-teacher covariance matrix (Psi)
+    spec_Omega: student-student covariance matrix (Omega)
+    spec_UPhiPhitUT: projection of student-teacher covariance into basis of Omega
+    '''
+    def __init__(self, *, spec_Psi, spec_Omega, spec_UPhiPhitUT):
+        self.spec_Psi = spec_Psi
+        self.spec_Omega = spec_Omega
+        self._UTPhiPhiTU = spec_UPhiPhitUT
+        self.rho = np.mean(self.spec_Psi)
+
+        self.p, self.k = len(self.spec_Omega), len(self.spec_Psi)
+        self.gamma = self.k / self.p
+
+        self.commute = False
+
+    def get_info(self):
+        info = {
+            'data_model': 'custom_spectra',
+            'teacher_dimension': self.k,
+            'student_dimension': self.p,
+            'aspect_ratio': self.gamma,
+            'rho': self.rho
+        }
+        return info

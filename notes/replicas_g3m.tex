@@ -167,16 +167,16 @@ As before, the consistency condition of the zeroth order term in the free energy
 \end{align}
 \noindent where we have defined $\hat{V} = \hat{r}+\hat{q}$. Now using that:
 \begin{align}
-	e^{\hat{q}\sum\limits_{a,b=1}^{r}{\vec{w}^{a}}^{\top}\Omega\vec{w}^{b}} = \mathbb{E}_{\xi}\left[e^{\sqrt{\hat{q}}\xi\Omega^{1/2}\sum\limits_{a=1}^{r}\vec{w}^{a}}\right]
+	e^{\hat{q}\sum\limits_{a,b=1}^{r}{\vec{w}^{a}}^{\top}\Omega\vec{w}^{b}} = \mathbb{E}_{\vec{\xi}}\left[e^{\sqrt{\hat{q}}\vec{\xi}^{\top}\Omega^{1/2}\sum\limits_{a=1}^{r}\vec{w}^{a}}\right]
 \end{align}
-\noindent for $\xi\sim\mathcal{N}(0,1)$, we can write:
+\noindent for $\vec{\xi}\sim\mathcal{N}(0,\mat{1}_{p})$, we can write:
 \begin{align}
-\Psi_{w}^{(r)} &= \frac{1}{p}\log\mathbb{E}_{\xi}\int_{\mathbb{R}^{k}}\dd\vec{\theta}^{0}P_{\vec{\theta}^{0}}\left(\vec{\theta}^{0}\right)\prod\limits_{a=1}^{r}\int_{\mathbb{R}^{p}}\dd\vec{w}^{a}P_{w}\left(\vec{w}^{a}\right) e^{-\frac{\hat{V}}{2}{\vec{w}^{a}}^{\top}\Omega\vec{w}^{a}+{\vec{w}^{a}}^{\top}\left(\hat{m}\Phi\vec{\theta}^{0}+\hat{q}\Omega^{1/2}\xi\right)}\\
-&= \frac{1}{p}\log\mathbb{E}_{\xi}\int_{\mathbb{R}^{k}}\dd\vec{\theta}^{0}P_{\vec{\theta}^{0}}\left(\vec{\theta}^{0}\right)\left[\int_{\mathbb{R}^{p}}\dd\vec{w}~P_{w}\left(\vec{w}\right) e^{-\frac{\hat{V}}{2}\vec{w}^{\top}\Omega\vec{w}+\vec{w}^{\top}\left(\hat{m}\Phi\vec{\theta}^{0}+\hat{q}\vec{1}^{\top}\Omega^{1/2}\xi\right)}\right]^{r}
+\Psi_{w}^{(r)} &= \frac{1}{p}\log\mathbb{E}_{\vec{\xi}}\int_{\mathbb{R}^{k}}\dd\vec{\theta}^{0}P_{\vec{\theta}^{0}}\left(\vec{\theta}^{0}\right)\prod\limits_{a=1}^{r}\int_{\mathbb{R}^{p}}\dd\vec{w}^{a}P_{w}\left(\vec{w}^{a}\right) e^{-\frac{\hat{V}}{2}{\vec{w}^{a}}^{\top}\Omega\vec{w}^{a}+{\vec{w}^{a}}^{\top}\left(\hat{m}\Phi\vec{\theta}^{0}+\hat{q}\Omega^{1/2}\xi\right)}\\
+&= \frac{1}{p}\log\mathbb{E}_{\vec{\xi}}\int_{\mathbb{R}^{k}}\dd\vec{\theta}^{0}P_{\vec{\theta}^{0}}\left(\vec{\theta}^{0}\right)\left[\int_{\mathbb{R}^{p}}\dd\vec{w}~P_{w}\left(\vec{w}\right) e^{-\frac{\hat{V}}{2}\vec{w}^{\top}\Omega\vec{w}+\vec{w}^{\top}\left(\hat{m}\Phi\vec{\theta}^{0}+\hat{q}\Omega^{1/2}\vec{\xi}\right)}\right]^{r}
 \end{align}
 \noindent and therefore:
 \begin{align}
-\Psi_{w}\equiv \lim\limits_{r\to 0^{+}}\frac{1}{r}\Psi_{w}^{(r)} = \frac{1}{p}\mathbb{E}_{\xi,\vec{\theta}^{0}}\log\int_{\mathbb{R}^{p}}\dd\vec{w}~P_{w}\left(\vec{w}\right) e^{-\frac{\hat{V}}{2}\vec{w}^{\top}\Omega\vec{w}+\vec{w}^{\top}\left(\hat{m}\Phi\vec{\theta}^{0}+\hat{q}\vec{1}^{\top}\Omega^{1/2}\xi\right)}
+\Psi_{w}\equiv \lim\limits_{r\to 0^{+}}\frac{1}{r}\Psi_{w}^{(r)} = \frac{1}{p}\mathbb{E}_{\xi,\vec{\theta}^{0}}\log\int_{\mathbb{R}^{p}}\dd\vec{w}~P_{w}\left(\vec{w}\right) e^{-\frac{\hat{V}}{2}\vec{w}^{\top}\Omega\vec{w}+\vec{w}^{\top}\left(\hat{m}\Phi\vec{\theta}^{0}+\hat{q}\Omega^{1/2}\vec{\xi}\right)}
 \end{align}
 
 %%%%%%%%%%%%%%%%%%%%%%%%
@@ -189,7 +189,7 @@ f_{\beta} = \underset{q,m,\hat{q},\hat{m}}{\extr}~\left\{-\frac{1}{2}r\hat{r}-\f
 \end{align}
 \noindent where
 \begin{align}
-\Psi_{w} &= \lim\limits_{p\to\infty} \frac{1}{p}\mathbb{E}_{\xi,\vec{\theta}^{0}}\log\int_{\mathbb{R}^{p}}\dd\vec{w}~P_{w}\left(\vec{w}\right) e^{-\frac{\hat{V}}{2}\vec{w}^{\top}\Omega\vec{w}+\vec{w}^{\top}\left(\hat{m}\Phi\vec{\theta}^{0}+\hat{q}\vec{1}^{\top}\Omega^{1/2}\xi\right)}\notag\\
+\Psi_{w} &= \lim\limits_{p\to\infty} \frac{1}{p}\mathbb{E}_{\xi,\vec{\theta}^{0}}\log\int_{\mathbb{R}^{p}}\dd\vec{w}~P_{w}\left(\vec{w}\right) e^{-\frac{\hat{V}}{2}\vec{w}^{\top}\Omega\vec{w}+\vec{w}^{\top}\left(\hat{m}\Phi\vec{\theta}^{0}+\hat{q}\Omega^{1/2}\vec{\xi}\right)}\notag\\
 \Psi_{y} &= \mathbb{E}_{\xi}\left[\int_{\mathbb{R}}\dd y~\mathcal{Z}_{y}^{0}\left(y,\frac{m}{\sqrt{q}}\xi, \rho-\frac{m^2}{q}\right)\log\mathcal{Z}_{y}(y,\sqrt{q}\xi,V)\right]
 \end{align}
 \noindent and 
@@ -206,16 +206,16 @@ P_{w}(\vec{w}) = \frac{1}{(2\pi)^{p/2}}e^{-\frac{\beta \lambda}{2}||\vec{w}||_{2
 \end{align}
 \noindent where we have included a convenient constant, and therefore:
 \begin{align}
-\int_{\mathbb{R}^{p}}\dd\vec{w}~P_{w}(\vec{w})&e^{-\frac{\hat{V}}{2}\vec{w}^{\top}\Omega\vec{w}+\vec{w}^{\top}\left(\hat{m}\Phi\vec{\theta}^{0}+\sqrt{\hat{q}}\vec{1}^{\top}\Omega^{1/2}\xi\right)} =\int_{\mathbb{R}^{p}}\frac{\dd\vec{w}}{(2\pi)^{p/2}}e^{-\frac{1}{2}\vec{w}^{\top}\left(\beta\lambda\mat{I}_{p}+\hat{V}\Omega\right)\vec{w}+\vec{w}^{\top}\left(\hat{m}\Phi\vec{\theta}^{0}+\sqrt{\hat{q}}\vec{1}^{\top}\Omega^{1/2}\xi\right)}\notag\\
-&=\frac{\exp\left(\frac{1}{2}\left(\hat{m}\Phi\vec{\theta}^{0}+\sqrt{\hat{q}}\vec{1}^{\top}\Omega^{1/2}\xi\right)^{\top}\left(\beta\lambda\mat{I}_{p}+\hat{V}\Omega\right)^{-1}\left(\hat{m}\Phi\vec{\theta}^{0}+\sqrt{\hat{q}}\vec{1}^{\top}\Omega^{1/2}\xi\right)^{\top}\right)}{\sqrt{\det\left(\beta\lambda\mat{I}_{p}+\hat{V}\Omega\right)}}
+\int_{\mathbb{R}^{p}}\dd\vec{w}~P_{w}(\vec{w})&e^{-\frac{\hat{V}}{2}\vec{w}^{\top}\Omega\vec{w}+\vec{w}^{\top}\left(\hat{m}\Phi\vec{\theta}^{0}+\sqrt{\hat{q}}\Omega^{1/2}\vec{\xi}\right)} =\int_{\mathbb{R}^{p}}\frac{\dd\vec{w}}{(2\pi)^{p/2}}e^{-\frac{1}{2}\vec{w}^{\top}\left(\beta\lambda\mat{I}_{p}+\hat{V}\Omega\right)\vec{w}+\vec{w}^{\top}\left(\hat{m}\Phi\vec{\theta}^{0}+\sqrt{\hat{q}}\Omega^{1/2}\vec{\xi}\right)}\notag\\
+&=\frac{\exp\left(\frac{1}{2}\left(\hat{m}\Phi\vec{\theta}^{0}+\sqrt{\hat{q}}\Omega^{1/2}\vec{\xi}\right)^{\top}\left(\beta\lambda\mat{I}_{p}+\hat{V}\Omega\right)^{-1}\left(\hat{m}\Phi\vec{\theta}^{0}+\sqrt{\hat{q}}\Omega^{1/2}\vec{\xi}\right)^{\top}\right)}{\sqrt{\det\left(\beta\lambda\mat{I}_{p}+\hat{V}\Omega\right)}}
 \end{align}
 \noindent taking the log and using $\log\det = \tr\log$, up to the limit:
 \begin{align}
-\Psi_{w} = -\frac{1}{2p}	\tr\log \left(\beta\lambda\mat{I}_{p}+\hat{V}\Omega\right)+\frac{1}{2p}\mathbb{E}_{\xi,\vec{\theta}^{0}}\left[\left(\hat{m}\Phi\vec{\theta}^{0}+\sqrt{\hat{q}}\vec{1}^{\top}\Omega^{1/2}\xi\right)^{\top}\left(\beta\lambda\mat{I}_{p}+\hat{V}\Omega\right)^{-1}\left(\hat{m}\Phi\vec{\theta}^{0}+\sqrt{\hat{q}}\vec{1}^{\top}\Omega^{1/2}\xi\right)\right]
+\Psi_{w} = -\frac{1}{2p}	\tr\log \left(\beta\lambda\mat{I}_{p}+\hat{V}\Omega\right)+\frac{1}{2p}\mathbb{E}_{\xi,\vec{\theta}^{0}}\left[\left(\hat{m}\Phi\vec{\theta}^{0}+\sqrt{\hat{q}}\Omega^{1/2}\vec{\xi}\right)^{\top}\left(\beta\lambda\mat{I}_{p}+\hat{V}\Omega\right)^{-1}\left(\hat{m}\Phi\vec{\theta}^{0}+\sqrt{\hat{q}}\Omega^{1/2}\vec{\xi}\right)\right]
 \end{align}
 Defining the shorthand $\mat{A} = \left(\beta\lambda\mat{I}_{p}+\hat{V}\Omega\right)^{-1}$, we can now take the averages over $\xi$ explicitly:
 \begin{align}
-	\mathbb{E}_{\xi}\left[\left(\hat{m}\Phi\vec{\theta}^{0}+\sqrt{\hat{q}}\vec{1}^{\top}\Omega^{1/2}\xi\right)^{\top}\mat{A}\left(\hat{m}\Phi\vec{\theta}^{0}+\hat{q}\vec{1}^{\top}\Omega^{1/2}\xi\right)\right] = \hat{m}^{2}{\vec{\theta}^{0}}^{\top}\Phi^{\top}\mat{A}\Phi\vec{\theta}^{0}+\hat{q}\tr\Omega^{1/2}\mat{A} \Omega^{1/2}
+	\mathbb{E}_{\vec{\xi}}\left[\left(\hat{m}\Phi\vec{\theta}^{0}+\sqrt{\hat{q}}\Omega^{1/2}\vec{\xi}\right)^{\top}\mat{A}\left(\hat{m}\Phi\vec{\theta}^{0}+\hat{q}\Omega^{1/2}\vec{\xi}\right)\right] = \hat{m}^{2}{\vec{\theta}^{0}}^{\top}\Phi^{\top}\mat{A}\Phi\vec{\theta}^{0}+\hat{q}\tr\Omega^{1/2}\mat{A} \Omega^{1/2}
 \end{align}
 Now taking the average with respect to $\vec{\theta}^{0}$:
 \begin{align}
@@ -255,7 +255,7 @@ To take the zero temperature limit, we let:
 \begin{align}
 V^{\infty}=\beta V && q^{\infty}= q && m^{\infty}= m\notag\\
 \hat{V}^{\infty}=\frac{1}{\beta} \hat{V} && \hat{q}^{\infty} = \frac{1}{\beta^2}\hat{q} && \hat{m}^{\infty} = \frac{1}{\beta}\hat{m}.
-\end{align}
+\end{align}t
 Inserting this in the equations above and taking $\beta\to 0$:
 \begin{align}
 	\begin{cases}
