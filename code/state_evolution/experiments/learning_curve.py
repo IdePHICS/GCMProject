@@ -1,5 +1,6 @@
 from ..data_models.custom import Custom
 from ..models.ridge_regression import RidgeRegression
+from ..models.l2_classification import L2Classification
 from ..models.logistic_regression import LogisticRegression
 from ..algorithms.state_evolution import StateEvolution
 import pandas as pd
@@ -20,7 +21,7 @@ class CustomExperiment(object):
         self.task = task
         self.lamb = regularisation
         self.data_model = data_model
-        
+
         # Hyperparameters
         self.initialisation=initialisation
         self.tolerance = tolerance
@@ -64,10 +65,10 @@ class CustomExperiment(object):
 
         self._learning_curve = pd.DataFrame.from_dict(curve)
 
-    
+
     def get_curve(self):
         return self._learning_curve
-    
+
     def _run(self, *, sample_complexity):
         '''
         Runs saddle-point equations.
@@ -94,6 +95,12 @@ class CustomExperiment(object):
             self.model = LogisticRegression(sample_complexity = sample_complexity,
                                             regularisation=self.lamb,
                                             data_model = self.data_model)
+
+        elif self.task == 'l2_classification':
+            self.model = L2Classification(sample_complexity = sample_complexity,
+                                            regularisation=self.lamb,
+                                            data_model = self.data_model)
+
         else:
             print('{} not implemented.'.format(self.task))
 
@@ -102,12 +109,12 @@ class CustomExperiment(object):
         Saves result of experiment in .json file with info for reproductibility.
         '''
         path = '{}/{}'.format(directory, name)
-        
+
         if date:
             from datetime import datetime
             day, time = datetime.now().strftime("%d_%m_%Y"), datetime.now().strftime("%H:%M")
             path += '_{}_{}'.format(day, time)
-            
+
         if unique_id:
             import uuid
             unique_id = uuid.uuid4().hex

@@ -2,6 +2,7 @@ from ..data_models.custom import Custom
 from ..models.ridge_regression import RidgeRegression
 from ..models.logistic_regression import LogisticRegression
 from ..algorithms.state_evolution import StateEvolution
+from ..models.l2_classification import L2Classification
 
 class CustomExperiment(object):
     '''
@@ -44,6 +45,12 @@ class CustomExperiment(object):
             self.model = LogisticRegression(sample_complexity = sample_complexity,
                                             regularisation=self.lamb,
                                             data_model = self.data_model)
+
+        elif self.task == 'l2_classification':
+            self.model = L2Classification(sample_complexity = sample_complexity,
+                                            regularisation=self.lamb,
+                                            data_model = self.data_model)
+
         else:
             print('{} not implemented.'.format(self.task))
 
