@@ -54,14 +54,14 @@ class CustomSpectra(DataModel):
     spec_Omega: student-student covariance matrix (Omega)
     spec_UPhiPhitUT: projection of student-teacher covariance into basis of Omega
     '''
-    def __init__(self, *, spec_Psi, spec_Omega, spec_UPhiPhitUT):
-        self.spec_Psi = spec_Psi
+    def __init__(self, *, rho, spec_Omega, spec_UPhiPhitUT, gamma):
+        self.rho = rho
         self.spec_Omega = spec_Omega
         self._UTPhiPhiTU = spec_UPhiPhitUT
-        self.rho = np.mean(self.spec_Psi)
 
-        self.p, self.k = len(self.spec_Omega), len(self.spec_Psi)
-        self.gamma = self.k / self.p
+        self.p = len(self.spec_Omega)
+        self.gamma = gamma
+        self.k = int(self.gamma * self.p)
 
         self.commute = False
 
