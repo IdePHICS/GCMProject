@@ -33,7 +33,7 @@ class LogisticRegression(Model):
         else:
             q = qhat * np.mean(self.data_model.spec_Omega**2 / (self.lamb + Vhat*self.data_model.spec_Omega)**2)
             q += mhat**2 * np.mean(self.data_model._UTPhiPhiTU * self.data_model.spec_Omega/(self.lamb + Vhat * self.data_model.spec_Omega)**2)
-            
+
             m = mhat/np.sqrt(self.data_model.gamma) * np.mean(self.data_model._UTPhiPhiTU/(self.lamb + Vhat * self.data_model.spec_Omega))
 
 
@@ -57,7 +57,7 @@ class LogisticRegression(Model):
         return self._update_overlaps(Vhat, qhat, mhat)
 
     def get_test_error(self, q, m):
-        return np.arccos(m/np.sqrt(q))/np.pi
+        return np.arccos(m/np.sqrt(q * self.data_model.rho))/np.pi
 
     def get_train_loss(self, V, q, m):
         Vstar = self.data_model.rho - m**2/q
