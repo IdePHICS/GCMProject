@@ -1,6 +1,11 @@
 # Gaussian Covariate Model and applications
 Repository for the paper [*Capturing the learning curves of generic features maps for realistic data sets with a teacher-student model*](https://arxiv.org/abs/2102.08127).
 
+<p float="left">
+  <img src="https://github.com/IdePHICS/GCMProject/blob/main/plots/setup.png" width="40%" height="35%">
+  <img src="https://github.com/IdePHICS/GCMProject/blob/main/plots/mnist_transforms.jpg" width="45%" height="45%">
+</p>
+
 # Structure
 
  We provide a couple of guided examples to help the reader reproduce the figures of the paper. The key ingredients are:
