@@ -1,5 +1,5 @@
 # Gaussian Covariate Model and applications
-Repository for the paper [*Capturing the learning curves of generic features maps for realistic data sets with a teacher-student model*](https://arxiv.org/abs/2102.08127).
+Repository for the paper [*Learning curves of generic features maps for realistic datasets with a teacher-student model*](https://arxiv.org/abs/2102.08127).
 
 <p float="left">
   <img src="https://github.com/IdePHICS/GCMProject/blob/main/plots/setup.png" width="40%" height="35%">
@@ -25,5 +25,5 @@ Note that for running the examples in ```/gan_data``` you will need the weights 
 
 # Reference
 
-[1]: *Capturing the learning curves of generic features maps for realistic data sets with a teacher-student model*,
+[1]: *Learning curves of generic features maps for realistic datasets with a teacher-student model*,
 B Loureiro, C Gerbelot, H Cui, S Goldt, F Krzakala, M Mézard, L Zdeborová, [arXiv: 2102.08127](https://arxiv.org/abs/2102.08127) [stat.ML]
